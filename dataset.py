@@ -31,8 +31,8 @@ class Vocab_Dict(object):
         # 데이터 불러오기
         text = self.load_data(filename)
         
-        # 테스트를 위해 80줄 남겨 놓기
-        text = text[81:]
+        # # 테스트를 위해 80줄 남겨 놓기
+        # text = text[81:]
 
         # 문장 부호 토큰화 : '?' --> QUESTION_MARK
         token_dict = self.make_token_dict()
@@ -62,9 +62,9 @@ class Vocab_Dict(object):
         sorted_vocab = sorted(word_count, key = word_count.get, reverse=True)
         # {인덱스 : '단어'} 형태
         idx2word = {idx: word for idx, word in enumerate(sorted_vocab)}
+
         # {'단어' : 인덱스} 형태
         word2idx = {word:idx for idx, word in idx2word.items()}
-        
         return (word2idx, idx2word)
 
     # 문장 부호 토큰 사전 만들기
@@ -72,14 +72,15 @@ class Vocab_Dict(object):
         token = dict()
         token['.'] = '<PERIOD>'
         token[','] = '<COMMA>'
-        token['"'] = 'QUOTATION_MARK'
-        token[';'] = 'SEMICOLON'
-        token['!'] = 'EXCLAIMATION_MARK'
-        token['?'] = 'QUESTION_MARK'
-        token['('] = 'LEFT_PAREN'
-        token[')'] = 'RIGHT_PAREN'
-        token['-'] = 'QUESTION_MARK'
-        token['\n'] = 'NEW_LINE'
+        token['"'] = '<QUOTATION_MARK>'
+        token['\''] = '<APOSTROPHE>'
+        token[';'] = '<SEMICOLON>'
+        token['!'] = '<EXCLAIMATION_MARK>'
+        token['?'] = '<QUESTION_MARK>'
+        token['('] = '<LEFT_PAREN>'
+        token[')'] = '<RIGHT_PAREN>'
+        token['-'] = '<HYPHEN>'
+        token['\n'] = '<NEW_LINE>'
         return token
 
 class Dataset(object):
