@@ -43,6 +43,7 @@ def forward_back_prop(model, optimizer, criterion, inp, target, hidden):
     
     inputs, targets = inp, target
     output, h = model(inputs, h)
+    print(output.shape)
     loss = criterion(output, targets.long())
     
     loss.backward()

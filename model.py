@@ -24,7 +24,6 @@ class RNN(nn.Module):
         embeds = self.embedding(x)
         lstm_out, hidden = self.lstm(embeds, hidden)
         lstm_out = lstm_out.contiguous().view(-1, self.hidden_dim)
-        
         out = self.fc(lstm_out)
         out = out.view(batch_size, -1, self.output_size)
         out = out[:, -1]

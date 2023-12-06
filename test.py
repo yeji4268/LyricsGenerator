@@ -27,12 +27,13 @@ def generate(model, prime_id, int_to_vocab, token_dict, pad_value, predict_len=1
         top_i = top_i.numpy().squeeze()
         
         p = p.numpy().squeeze()
+        # 확률을 사용한 임의 복원 표본 추출
         word_i = np.random.choice(top_i, p=p/p.sum())
         
         word = int_to_vocab[word_i]
         predicted.append(word)     
         
-        current_seq = np.roll(current_seq.cpu(), -1, 1)
+        current_seq = np.roll(current_seq, -1, 1)
         current_seq[-1][-1] = word_i
     
     gen_sentences = ' '.join(predicted)
@@ -42,7 +43,6 @@ def generate(model, prime_id, int_to_vocab, token_dict, pad_value, predict_len=1
         gen_sentences = gen_sentences.replace(' ' + token.lower(), key)
     gen_sentences = gen_sentences.replace('\n ', '\n')
     gen_sentences = gen_sentences.replace('( ', '(')
-    
     
     return gen_sentences
 
