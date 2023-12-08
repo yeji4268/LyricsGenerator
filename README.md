@@ -31,13 +31,13 @@
 #### [토큰화] K-pop 가사들은 한국어 + 영어의 혼합 형태가 대부분. 어떻게 처리할 것인가?
 * 문제 1 : 가사의 특성상, 문장 구조가 지켜지지 않거나 문장이 되지 않는 경우가 많다. <br>
 --> 보통의 한국어 문장 분석 시 사용하는 문장 구조 분석이나 품사 분류가 의미가 없을 수 있다. 
-![가사 토큰화 하기](image/image.png)
+![가사 토큰화 하기](image/image.png)<br>
 * 방법 : 띄어쓰기 기준으로 분리<br>
 
 #### [정규화] 표기가 다양한 가사 데이터, 어떻게 처리할 것인가?
 * 문제 1 : 가사에는 다양한 문장 부호가 포함되지만, 문자와 붙어있어 띄어쓰기로는 분류되지 않는다.
 * 문제 2 : 대/소문자로 구분되어 모두 다른 단어로 분류된다. 
-![Alt text](image/image-1.png) 
+![Alt text](image/image-1.png) <br>
 * 방법 : 문장 부호 사전을 만들어 모두 토큰 형태로 Replace 하기, 대/소문자 통합하기
 
 #### [정제] 토큰화에 방해되는 데이터가 있는가? 있다면 어떻게 처리할 것인가?
@@ -48,34 +48,34 @@
 ### 단어 사전 만들기
 문자 데이터를 예측 모델에 사용하기 위해서는 단어 사전을 만드는 작업이 필요하다. <br>
 #### Word2idx : Word to Index
-![Alt text](image/image-2.png)
+![Alt text](image/image-2.png)<br>
 #### Idx2word : Index to Word
-![Alt text](image/image-3.png)
+![Alt text](image/image-3.png)<br>
 
 ## 4. 모델링
 ### 텍스트 생성 원리
 #### [Train] Skip-Gram
 Word2Vec 중 성능이 더 높다고 알려져 있는 Skip-Gram 방식을 사용<br>
-![Alt text](image/image-4.png)
+![Alt text](image/image-4.png)<br>
 시퀀스는 윈도우 형태로 동작한다. 윈도우는 중심 단어를 하나씩 옮겨가면서 윈도우에 단어를 넣는다. 이런 방식으로 나올 수 있는 순서쌍을 학습하는 방식이다. <br>
 *윈도우 안에 있는 가장 마지막 데이터가 Label, 그 앞 데이터들은 Feature가 된다. 
 #### [Test] Top-K Sampling
 가장 확률이 높은 K개의 다음 단어들을 필터링, 확률 질량을 해당 단어들에 재분배하는 방식이다. 
-![Alt text](image/image-5.png)
+![Alt text](image/image-5.png)<br>
 *분류와 비슷한 동작 구조
 
 ### 코드 구조
-![Alt text](image/image-6.png)
+![Alt text](image/image-6.png)<br>
 
 ## 5. 성능 평가
 ### 성능 평가 기준 : nn.CrossEntropyLoss
 분류와 비슷한 동작 구조로 분류에 사용되는 CrossEntorpyLoss을 성능 기준으로 사용한다. 
 Pytorch의 CrossEntropyLoss 수식은 다음과 같다. 
-![Alt text](image.png)
+![Alt text](image.png)<br>
 softmax에 log를 취한 LogSoft와 NLLLoss가 혼합된 형태이다. 
 * 동작 구조 : Softmax -> Log 취하기 -> 음수를 양수로 -> 평균/합 구하기
 * Softmax에 Log를 취하는 이유?
- ![Alt text](image-1.png)
+ ![Alt text](image-1.png)<br>
  확률이 0에 가까울수록 높은 Loss 값을 가지게 되고, 1에 가까울수록 낮은 Loss 값을 가지게 되는 원리로, 안정적인 모델을 만들 수 있다. 
 
 ### 성능 비교
@@ -83,17 +83,17 @@ softmax에 log를 취한 LogSoft와 NLLLoss가 혼합된 형태이다.
 epoch 제외, 가장 높은 성능을 보인 옵션을 다음 항목 실험에 적용
 
 #### Epoch
-![Alt text](image-3.png)
+![Alt text](image-3.png)<br>
 #### Learning Rate
-![Alt text](image-4.png)
+![Alt text](image-4.png)<br>
 #### Batch Size
-![Alt text](image-5.png)
+![Alt text](image-5.png)<br>
 #### Dropout
-![Alt text](image-6.png)
+![Alt text](image-6.png)<br>
 #### Sequence Length
-![Alt text](image-7.png)
+![Alt text](image-7.png)<br>
 #### Top100 vs 한 가수만
-![Alt text](image-9.png)
+![Alt text](image-9.png)<br>
 
 ## 6. 결론
 ### 모델 튜닝 결과
