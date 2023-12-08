@@ -71,11 +71,11 @@ Word2Vec 중 성능이 더 높다고 알려져 있는 Skip-Gram 방식을 사용
 ### 성능 평가 기준 : nn.CrossEntropyLoss
 분류와 비슷한 동작 구조로 분류에 사용되는 CrossEntorpyLoss을 성능 기준으로 사용한다. 
 Pytorch의 CrossEntropyLoss 수식은 다음과 같다. 
-![Alt text](image.png)<br>
+![Alt text](image/image-7.png)<br>
 softmax에 log를 취한 LogSoft와 NLLLoss가 혼합된 형태이다. 
 * 동작 구조 : Softmax -> Log 취하기 -> 음수를 양수로 -> 평균/합 구하기
 * Softmax에 Log를 취하는 이유?
- ![Alt text](image-1.png)<br>
+ ![Alt text](image/image-8.png)<br>
  확률이 0에 가까울수록 높은 Loss 값을 가지게 되고, 1에 가까울수록 낮은 Loss 값을 가지게 되는 원리로, 안정적인 모델을 만들 수 있다. 
 
 ### 성능 비교
@@ -83,17 +83,17 @@ softmax에 log를 취한 LogSoft와 NLLLoss가 혼합된 형태이다.
 epoch 제외, 가장 높은 성능을 보인 옵션을 다음 항목 실험에 적용
 
 #### Epoch
-![Alt text](image-3.png)<br>
+![Alt text](image/image-10.png)<br>
 #### Learning Rate
-![Alt text](image-4.png)<br>
+![Alt text](image/image-11.png)<br>
 #### Batch Size
-![Alt text](image-5.png)<br>
+![Alt text](image/image-12.png)<br>
 #### Dropout
-![Alt text](image-6.png)<br>
+![Alt text](image/image-15.png)<br>
 #### Sequence Length
-![Alt text](image-7.png)<br>
+![Alt text](image/image-14.png)<br>
 #### Top100 vs 한 가수만
-![Alt text](image-9.png)<br>
+![Alt text](image/image-16.png)<br>
 
 ## 6. 결론
 ### 모델 튜닝 결과
